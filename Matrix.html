@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Matrix Multiplication</title>
+</head>
+<style>
+    /* Style the form */
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    label {
+      font-weight: bold;
+    }
+  
+    textarea {
+      width: 50%;
+      height: 50px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 12px;
+    }
+  
+    button {
+      width: 80px;
+      height: 40px;
+      background-color: #4CAF50;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  
+    /* Style the result */
+    .result {
+      margin-top: 20px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+  </style>
+
+  
+<body>
+  <form>
+    <label for="mat1">Enter matrix 1:</label><br>
+    <textarea id="mat1" rows="2" cols="2"></textarea><br>
+    <label for="mat2">Enter matrix 2:</label><br>
+    <textarea id="mat2" rows="2" cols="2"></textarea><br><br>
+    <button type="button" onclick="multiplyMatrices()">Multiply</button>
+  </form> 
+  <br>
+  <div id="result"></div>
+  <script>
+    function multiplyMatrices() {
+      // Get the matrices from the form
+      const matrix1 = document.getElementById('mat1').value;
+      const matrix2 = document.getElementById('mat2').value;
+  
+      // Split the matrices into arrays of arrays of numbers
+      const arr1 = matrix1.split('\n').map(row => row.split(' ').map(Number));
+      const arr2 = matrix2.split('\n').map(row => row.split(' ').map(Number));
+  
+      // Check if the matrices can be multiplied (i.e., the number of columns in the first matrix is equal to the number of rows in the second matrix)
+      if (arr1[0].length !== arr2.length) {
+        alert('The matrices cannot be multiplied!');
+        return;
+      }
+  
+      // Initialize the result matrix with zeros
+      const result = [];
+      for (let i = 0; i < arr1.length; i++) {
+        result.push(new Array(arr2[0].length).fill(0));
+      }
+  
+      // Multiply the matrices
+      for (let i = 0; i < arr1.length; i++) {
+        for (let j = 0; j < arr2[0].length; j++) {
+          for (let k = 0; k < arr2.length; k++) {
+            result[i][j] += arr1[i][k] * arr2[k][j];
+          }
+        }
+      }
+  
+      // Display the result
+      alert(`Result: ${result.map(row => row.join(' ')).join('\n')}`);
+    }
+  </script>
+  
+</body>
+</html>
